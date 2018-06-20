@@ -4,16 +4,18 @@
  * and open the template in the editor.
  */
 package dao;
-
+//import com.sun.istack.internal.logging.Logger;
 import Conexion.Conexion;
 import interfaces.metodos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Filtro;
+import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -80,29 +82,47 @@ public class FiltroDao implements metodos<Filtro>{
 
     @Override
     public Filtro read(Object key) {
-        Filtro f = null;
+       Filtro f = null;
         PreparedStatement ps;
         ResultSet rs;
-        try{
+
+        try {
             ps = con.getCnx().prepareStatement(SQL_READ);
             ps.setString(1, key.toString());
-            
             rs = ps.executeQuery();
-            while(rs.next()){
-                f = new Filtro(rs.getInt(1), rs.getString(3), rs.getString(3), rs.getInt(4), rs.getBoolean(5));
+
+            while (rs.next()) {
+                f = new Filtro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5));
             }
+            rs.close();
         } catch (SQLException ex) {
-            System.out.print(ex.getMessage());
+            System.out.println(ex.getMessage());
             Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             con.cerrarConexion();
         }
-        return null;
+        return f;
     }
 
     @Override
     public ArrayList<Filtro> readAll() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ArrayList<Filtro> all = new ArrayList();
+        Statement s;
+        ResultSet rs;
+
+        try {
+            s = con.getCnx().prepareStatement(SQL_READALL);
+            rs = s.executeQuery(SQL_READALL);
+
+            while (rs.next()) {
+                all.add(new Filtro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5)));
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return all;
     }
+    
     
 }

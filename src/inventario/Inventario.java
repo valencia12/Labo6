@@ -5,6 +5,8 @@
  */
 package inventario;
 
+import vista.Consulta;
+
 /**
  *
  * @author LN710Q
@@ -16,6 +18,7 @@ public class Inventario {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+         new Consulta().setVisible(true);   
     }
     
 }

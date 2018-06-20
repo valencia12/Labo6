@@ -10,19 +10,43 @@ package modelo;
  * @author LN710Q
  */
 public class Filtro {
-    private int id;
+    
+   private int id;
     private String codigo;
     private String marca;
     private int stock;
     private boolean existencia;
-    public String getCodigo;
 
-    public String getCodigo() {
-        return codigo;
+    public Filtro() {
+    }
+
+    public Filtro(int id, String codigo, String marca, int stock, boolean existencia) {
+        this.id = id;
+        this.codigo = codigo;
+        this.marca = marca;
+        this.stock = stock;
+        this.existencia = existencia;
+    }
+    
+    public Filtro(String codigo, String marca, int stock, boolean existencia) {
+        this.codigo = codigo;
+        this.marca = marca;
+        this.stock = stock;
+        this.existencia = existencia;
+    }
+    
+    public Filtro(String marca, int stock, boolean existencia) {
+        this.marca = marca;
+        this.stock = stock;
+        this.existencia = existencia;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getCodigo() {
+        return codigo;
     }
 
     public String getMarca() {
@@ -33,18 +57,16 @@ public class Filtro {
         return stock;
     }
 
+    public boolean getExistencia() {
+        return existencia;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public void setCodigo(String codigo) {
         this.codigo = codigo;
-    }
-    
-    
-
-    public void setExistencia(boolean existencia) {
-        this.existencia = existencia;
-    }
-    
-      public boolean getExistencia(boolean existencia) {
-        return existencia;
     }
 
     public void setMarca(String marca) {
@@ -54,36 +76,8 @@ public class Filtro {
     public void setStock(int stock) {
         this.stock = stock;
     }
-    
-    
-    
 
-    public Filtro() {
-    }
-    
-    public Filtro(int id, String codigo, String marca, int stock, boolean existencia){
-        this.id = id;
-        this.marca = marca;
-        this.stock = stock;
-        this.existencia = existencia;
-        this.codigo = codigo;
-    }
-    
-    public Filtro(String codigo, String marca, int stock, boolean existencia){
-        this.codigo = codigo;
-        this.marca = marca;
-        this.stock = stock;
+    public void setExistencia(boolean existencia) {
         this.existencia = existencia;
     }
-    
-     public Filtro(String marca, int stock, boolean existencia){
-        this.marca = marca;
-        this.stock = stock;
-        this.existencia = existencia;
-    }
-
-    public boolean getExistencia() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
 }
