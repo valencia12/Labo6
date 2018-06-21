@@ -11,34 +11,34 @@ package modelo;
  */
 public class Filtro {
     
-   private int id;
+    private int id;
     private String codigo;
-    private String marca;
-    private int stock;
-    private boolean existencia;
+    private String nombre;
+    private int cantidad;
+    private boolean disponibilidad;
 
     public Filtro() {
     }
 
-    public Filtro(int id, String codigo, String marca, int stock, boolean existencia) {
+    public Filtro(int id, String codigo, String nombre, int cantidad, boolean disponibilidad) {
         this.id = id;
         this.codigo = codigo;
-        this.marca = marca;
-        this.stock = stock;
-        this.existencia = existencia;
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.disponibilidad = disponibilidad;
     }
     
-    public Filtro(String codigo, String marca, int stock, boolean existencia) {
+    public Filtro(String codigo, String nombre, int cantidad, boolean disponibilidad) {
         this.codigo = codigo;
-        this.marca = marca;
-        this.stock = stock;
-        this.existencia = existencia;
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.disponibilidad = disponibilidad;
     }
     
-    public Filtro(String marca, int stock, boolean existencia) {
-        this.marca = marca;
-        this.stock = stock;
-        this.existencia = existencia;
+    public Filtro(String nombre, int cantidad, boolean exisdisponibilidadtencia) {
+        this.nombre = nombre;
+        this.cantidad = cantidad;
+        this.disponibilidad = disponibilidad;
     }
 
     public int getId() {
@@ -49,16 +49,16 @@ public class Filtro {
         return codigo;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getNombre() {
+        return nombre;
     }
 
-    public int getStock() {
-        return stock;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public boolean getExistencia() {
-        return existencia;
+    public boolean getDisponibilidad() {
+        return disponibilidad;
     }
 
     public void setId(int id) {
@@ -69,15 +69,15 @@ public class Filtro {
         this.codigo = codigo;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void setcantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
-    public void setExistencia(boolean existencia) {
-        this.existencia = existencia;
+    public void setDisponibilidad(boolean disponibilidad) {
+        this.disponibilidad = disponibilidad;
     }
 }

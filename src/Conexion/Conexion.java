@@ -47,8 +47,8 @@ public class Conexion {
     private void cargarCredenciales() {
        user = "root";
        pass="";
-       driver = "com.mysql.jsbc.Driver";
-       url = "jdbc:mys1l://localhost/filtros";
+       driver = "com.mysql.jdbc.Driver";
+       url = "jdbc:mysql://localhost/labo1";
     }
     
     public Connection getCnx(){

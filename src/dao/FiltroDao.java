@@ -15,18 +15,18 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Filtro;
-import sun.util.logging.PlatformLogger;
+
 
 /**
  *
  * @author LN710Q
  */
 public class FiltroDao implements metodos<Filtro>{
-    private static final String SQL_INSERT = "INSERT INTO filtros_aceite(codFiltro,marca,stock,existencia) VALUES (?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE filtros_aceite SET marca = ? ,stock = ?,existencia = ? WHERE codFIltro=?";
-    private static final String SQL_DELETE = "DELETE FROM filtros_aceite WHERE codFiltro=?";
-    private static final String SQL_READ = "SELECT * FROM filtros_aceite WHERE codFiltro=?";
-    private static final String SQL_READALL = "SELECT * FROM filtros_aceite";
+    private static final String SQL_INSERT = "INSERT INTO productos(nombre,codigo,tipo,cantidad,precio,disponibilidad) VALUES (?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE productos SET nombre = ? ,tipo = ?,cantidad = ?, precio = ?, disponibilidad = ? WHERE codigo=?";
+    private static final String SQL_DELETE = "DELETE FROM productos WHERE codigo=?";
+    private static final String SQL_READ = "SELECT * FROM productos WHERE codigo=?";
+    private static final String SQL_READALL = "SELECT * FROM productos";
     private static final Conexion con = Conexion.conectar();
     @Override
     public boolean create(Filtro g) {
@@ -34,7 +34,7 @@ public class FiltroDao implements metodos<Filtro>{
     try {
         ps = con.getCnx().prepareStatement(SQL_INSERT);
         ps.setString(1, g.getCodigo());
-        ps.setString(1, g.getMarca());
+        ps.setString(1, g.getNombre());
         ps.setBoolean(4, true);
         
         } catch (SQLException ex) {
@@ -67,9 +67,9 @@ public class FiltroDao implements metodos<Filtro>{
         PreparedStatement ps;
         try{
             ps = con.getCnx().prepareStatement(SQL_UPDATE);
-            ps.setString(1, c.getMarca());
-            ps.setInt(2, c.getStock());
-            ps.setBoolean(3, c.getExistencia());
+            ps.setString(1, c.getNombre());
+            ps.setInt(2, c.getCantidad());
+            ps.setBoolean(3, c.getDisponibilidad());
             ps.setString(4, c.getCodigo());
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
