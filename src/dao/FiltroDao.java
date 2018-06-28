@@ -4,59 +4,68 @@
  * and open the template in the editor.
  */
 package dao;
-//import com.sun.istack.internal.logging.Logger;
-import Conexion.Conexion;
+
+import conexion.Conexion;
 import interfaces.metodos;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modelo.Filtro;
-
+//import sun.util.logging.PlatformLogger;
 
 /**
  *
  * @author LN710Q
  */
-public class FiltroDao implements metodos<Filtro>{
-    private static final String SQL_INSERT = "INSERT INTO productos(nombre,codigo,tipo,cantidad,precio,disponibilidad) VALUES (?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "UPDATE productos SET nombre = ? ,tipo = ?,cantidad = ?, precio = ?, disponibilidad = ? WHERE codigo=?";
-    private static final String SQL_DELETE = "DELETE FROM productos WHERE codigo=?";
-    private static final String SQL_READ = "SELECT * FROM productos WHERE codigo=?";
+public class FiltroDao implements metodos<Filtro> {
+
+    private static final String SQL_INSERT = "INSERT INTO productos (codigo, precio, nombre, cantidad, tipo, disponibilidad) VALUES(?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "UPDATE productos SET precio = ?, nombre = ?, cantidad = ?, tipo = ?, disponibilidad = ? WHERE codigo = ?";
+    private static final String SQL_DELETE = "DELETE FROM productos WHERE codigo = ?";
+    private static final String SQL_READ = "SELECT * FROM productos WHERE codigo = ?";
     private static final String SQL_READALL = "SELECT * FROM productos";
     private static final Conexion con = Conexion.conectar();
+
     @Override
     public boolean create(Filtro g) {
         PreparedStatement ps;
-    try {
-        ps = con.getCnx().prepareStatement(SQL_INSERT);
-        ps.setString(1, g.getCodigo());
-        ps.setString(1, g.getNombre());
-        ps.setBoolean(4, true);
-        
+        try {
+            ps = con.getCnx().prepareStatement(SQL_INSERT);
+            ps.setString(1, g.getCodigo());
+            ps.setDouble(2, g.getPrecio());
+            ps.setString(3, g.getNombre());
+            ps.setInt(4, g.getCantidad());
+            ps.setString(5, g.getTipo());
+            ps.setBoolean(6, true);
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
+
+        } finally {
             con.cerrarConexion();
         }
-      return false;
+        return false;
     }
 
     @Override
     public boolean delete(Object key) {
         PreparedStatement ps;
-        try{
+        try {
             ps = con.getCnx().prepareStatement(SQL_DELETE);
             ps.setString(1, key.toString());
-        
-        }catch(SQLException ex){
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             con.cerrarConexion();
         }
         return false;
@@ -65,16 +74,22 @@ public class FiltroDao implements metodos<Filtro>{
     @Override
     public boolean update(Filtro c) {
         PreparedStatement ps;
-        try{
+        try {
+            System.out.println(c.getCodigo());
             ps = con.getCnx().prepareStatement(SQL_UPDATE);
-            ps.setString(1, c.getNombre());
-            ps.setInt(2, c.getCantidad());
-            ps.setBoolean(3, c.getDisponibilidad());
-            ps.setString(4, c.getCodigo());
+            ps.setDouble(1, c.getPrecio());
+            ps.setString(2,c.getNombre());
+            ps.setInt(3, c.getCantidad());
+            ps.setString(4, c.getTipo());
+            ps.setBoolean(5, c.getDisponibilidad());
+            ps.setString(6, c.getCodigo());
+            if (ps.executeUpdate() > 0) {
+                return true;
+            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             Logger.getLogger(FiltroDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally{
+        } finally {
             con.cerrarConexion();
         }
         return false;
@@ -82,7 +97,7 @@ public class FiltroDao implements metodos<Filtro>{
 
     @Override
     public Filtro read(Object key) {
-       Filtro f = null;
+        Filtro f = null;
         PreparedStatement ps;
         ResultSet rs;
 
@@ -92,7 +107,7 @@ public class FiltroDao implements metodos<Filtro>{
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                f = new Filtro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5));
+                f = new Filtro(rs.getInt(1), rs.getString(3), rs.getDouble(6), rs.getString(2), rs.getInt(5), rs.getString(4), rs.getBoolean(7));
             }
             rs.close();
         } catch (SQLException ex) {
@@ -102,6 +117,7 @@ public class FiltroDao implements metodos<Filtro>{
             con.cerrarConexion();
         }
         return f;
+
     }
 
     @Override
@@ -115,7 +131,7 @@ public class FiltroDao implements metodos<Filtro>{
             rs = s.executeQuery(SQL_READALL);
 
             while (rs.next()) {
-                all.add(new Filtro(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getBoolean(5)));
+                all.add(new Filtro(rs.getInt(1),rs.getString(3), rs.getDouble(6), rs.getString(2), rs.getInt(5), rs.getString(4), rs.getBoolean(7)));
             }
             rs.close();
         } catch (SQLException ex) {
@@ -123,6 +139,5 @@ public class FiltroDao implements metodos<Filtro>{
         }
         return all;
     }
-    
-    
+
 }

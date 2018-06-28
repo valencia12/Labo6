@@ -3,7 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package vista;
+
 import dao.FiltroDao;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
@@ -25,31 +31,30 @@ import javax.swing.table.DefaultTableModel;
 import modelo.Filtro;
 /**
  *
- * @author LN710Q
+ * @author aacm12
  */
 public class Consulta extends JFrame {
 
-    public JLabel lblCodigo, lblNombre, lblPrecio, lblCantidad, lbltipo,lbldis;
+    public JLabel lblCodigo, lblPrecio, lblNombre, lblCantidad, lblTipo, lblDisponibilidad;
 
-    //public JTextField codigo, descripcion, stock;
-    public JTextField codigo, nombre, cantidad,tipo;
-    public JComboBox disponibilidad;
+    public JTextField codigo, precio, nombre, cantidad;
+    public JComboBox tipo;
 
-    ButtonGroup existencia = new ButtonGroup();
+    ButtonGroup disponibilidad = new ButtonGroup();
     public JRadioButton no;
     public JRadioButton si;
     public JTable resultados;
 
     public JPanel table;
 
-    public JButton buscar, eliminar, insertar, limpiar, actualizar;
+    public JButton  buscar,actualizar, eliminar, insertar, limpiar ;
 
     private static final int ANCHOC = 130, ALTOC = 30;
 
     DefaultTableModel tm;
 
     public Consulta() {
-        super("Productos");
+        super("inventario");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(null);
         agregarLabels();
@@ -57,50 +62,50 @@ public class Consulta extends JFrame {
         llenarTabla();
         Container container = getContentPane();
         container.add(lblCodigo);
-        container.add(lblNombre);
         container.add(lblPrecio);
-        container.add(nombre);
-        container.add(tipo);
-        container.add(lbltipo);
+        container.add(lblNombre);
+        container.add(lblCantidad);
+        container.add(lblTipo);
+        container.add(lblDisponibilidad);
         container.add(codigo);
-        
-        container.add(disponibilidad);
+        container.add(precio);
+        container.add(nombre);
+        container.add(cantidad);
+        container.add(tipo);
         container.add(si);
         container.add(no);
-        container.add(lbldis);
         container.add(buscar);
         container.add(insertar);
         container.add(actualizar);
         container.add(eliminar);
         container.add(limpiar);
         container.add(table);
-        container.add(codigo);
-        setSize(600, 600);
+        setSize(800, 800);
         eventos();
 
     }
 
     private void agregarLabels() {
         lblCodigo = new JLabel("Codigo");
-        lblNombre = new JLabel("Nombre");
         lblPrecio = new JLabel("Precio");
-        lbldis = new JLabel("Disponibilidad");
+        lblNombre = new JLabel("Nombre");
         lblCantidad = new JLabel("Cantidad");
-        lbltipo = new JLabel("Tipo");
-        lbldis.setBounds(10, 170, ANCHOC, ALTOC);
+        lblTipo = new JLabel("Tipo");
+        lblDisponibilidad = new JLabel("Stock en tienda");
         lblCodigo.setBounds(10, 10, ANCHOC, ALTOC);
-        lblNombre.setBounds(10, 60, ANCHOC, ALTOC);
-        lblPrecio.setBounds(10, 100, ANCHOC, ALTOC);
+        lblPrecio.setBounds(10, 60, ANCHOC, ALTOC);
+        lblNombre.setBounds(10, 100, ANCHOC, ALTOC);
         lblCantidad.setBounds(10, 140, ANCHOC, ALTOC);
-        lbltipo.setBounds(10, 140, ANCHOC, ALTOC);
+        lblTipo.setBounds(10, 180, ANCHOC, ALTOC);
+        lblDisponibilidad.setBounds(10, 220, ANCHOC, ALTOC);
     }
-//public JTextField codigo, nombre, cantidad,tipo;
+
     private void formulario() {
         codigo = new JTextField();
-        disponibilidad = new JComboBox();
+        precio = new JTextField();
         nombre = new JTextField();
         cantidad = new JTextField();
-        tipo = new JTextField();
+        tipo = new JComboBox();
         si = new JRadioButton("si", true);
         no = new JRadioButton("no");
         resultados = new JTable();
@@ -111,32 +116,33 @@ public class Consulta extends JFrame {
         limpiar = new JButton("Limpiar");
 
         table = new JPanel();
-        
-        disponibilidad.addItem("Frutas");
-        disponibilidad.addItem("Verduras");
-        disponibilidad.addItem("Bebidad");
-        disponibilidad.addItem("Dulce");
-         
-//public JTextField codigo, nombre, cantidad,tipo;
-        existencia = new ButtonGroup();
-        existencia.add(si);
-        existencia.add(no);
+
+        tipo.addItem("Fruta");
+        tipo.addItem("Verdura");
+        tipo.addItem("Bebida");
+        tipo.addItem("Dulce");
+
+        disponibilidad = new ButtonGroup();
+        disponibilidad.add(si);
+        disponibilidad.add(no);
         //-------------------------------------------
         codigo.setBounds(140, 10, ANCHOC, ALTOC);
-        nombre.setBounds(140, 60, ANCHOC, ALTOC);
-        cantidad.setBounds(140, 100, ANCHOC, ALTOC);
-        tipo.setBounds(140, 100, ANCHOC, ALTOC);
-        si.setBounds(145, 170, 50, ALTOC);
-        no.setBounds(210, 170, 50, ALTOC);
+        precio.setBounds(140, 60, ANCHOC, ALTOC);        
+        nombre.setBounds(140, 100, ANCHOC, ALTOC);
+        cantidad.setBounds(140, 140, ANCHOC, ALTOC);
+        tipo.setBounds(140, 180, ANCHOC, ALTOC);
+        
+        si.setBounds(140, 220, 50, ALTOC);
+        no.setBounds(210, 220, 50, ALTOC);
 
         buscar.setBounds(300, 10, ANCHOC, ALTOC);
-        insertar.setBounds(10, 210, ANCHOC, ALTOC);
-        actualizar.setBounds(150, 210, ANCHOC, ALTOC);
-        eliminar.setBounds(300, 210, ANCHOC, ALTOC);
-        limpiar.setBounds(450, 210, ANCHOC, ALTOC);
-        disponibilidad.setBounds(140, 145, ANCHOC, ALTOC);
+        insertar.setBounds(10, 260, ANCHOC, ALTOC);
+        actualizar.setBounds(150, 260, ANCHOC, ALTOC);
+        eliminar.setBounds(300, 260, ANCHOC, ALTOC);
+        limpiar.setBounds(450, 260, ANCHOC, ALTOC);
+
         resultados = new JTable();
-        table.setBounds(10, 250, 500, 200);
+        table.setBounds(10, 300, 500, 200);
         table.add(new JScrollPane(resultados));
 
     }
@@ -152,25 +158,27 @@ public class Consulta extends JFrame {
                     case 2:
                         return String.class;
                     case 3:
-                          return String.class;
-                    case 4:
-                            return boolean.class;
+                        return String.class;
+                    case 4: 
+                        return String.class;
                     default:
                         return Boolean.class;
                 }
             }
         };
-//public JTextField codigo, nombre, cantidad,tipo;
+
         tm.addColumn("Codigo");
-        tm.addColumn("Nombre");
+        tm.addColumn("precio");
+        tm.addColumn("nombre");
         tm.addColumn("Cantidad");
         tm.addColumn("Tipo");
+        tm.addColumn("Producto Disponible");
 
         FiltroDao fd = new FiltroDao();
         ArrayList<Filtro> filtros = fd.readAll();
 
         for (Filtro fi : filtros) {
-            tm.addRow(new Object[]{fi.getCodigo(), fi.getNombre(), fi.getCantidad(), fi.getDisponibilidad()});
+            tm.addRow(new Object[]{fi.getCodigo(), fi.getPrecio(), fi.getNombre(),fi.getCantidad(), fi.getTipo(), fi.getDisponibilidad()});
         }
 
         resultados.setModel(tm);
@@ -182,18 +190,18 @@ public class Consulta extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), disponibilidad.getSelectedItem().toString(), Integer.parseInt(cantidad.getText()), true);
+                Filtro f = new Filtro(codigo.getText(),Double.parseDouble(precio.getText()),nombre.getText(),Integer.parseInt(cantidad.getText()), tipo.getSelectedItem().toString(), true);
 
                 if (no.isSelected()) {
                     f.setDisponibilidad(false);
                 }
 
                 if (fd.create(f)) {
-                    JOptionPane.showMessageDialog(null, "Filtro registrado con éxito");
+                    JOptionPane.showMessageDialog(null, "Producto registrado con éxito");
                     limpiarCampos();
                     llenarTabla();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema con la creación de este filtro.");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema con la creación de este Producto.");
                 }
             }
         });
@@ -202,18 +210,18 @@ public class Consulta extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), disponibilidad.getSelectedItem().toString(), Integer.parseInt(cantidad.getText()), true);
+                Filtro f = new Filtro(codigo.getText(),Double.parseDouble(precio.getText()),nombre.getText(),Integer.parseInt(cantidad.getText()), tipo.getSelectedItem().toString(), true);
 
                 if (no.isSelected()) {
                     f.setDisponibilidad(false);
                 }
 
                 if (fd.update(f)) {
-                    JOptionPane.showMessageDialog(null, "Filtro modificado con éxito");
+                    JOptionPane.showMessageDialog(null, "Producto modificado con éxito");
                     limpiarCampos();
                     llenarTabla();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de creación de este filtro.");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de creación de este Producto.");
                 }
             }
         });
@@ -222,13 +230,13 @@ public class Consulta extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 FiltroDao fd = new FiltroDao();
-                Filtro f = new Filtro(codigo.getText(), disponibilidad.getSelectedItem().toString(), Integer.parseInt(cantidad.getText()), true);
+                Filtro f = new Filtro(codigo.getText(),Double.parseDouble(precio.getText()),codigo.getText(),Integer.parseInt(cantidad.getText()), tipo.getSelectedItem().toString(), true);
                 if (fd.delete(codigo.getText())) {
-                    JOptionPane.showMessageDialog(null, "Filtro eliminado con éxito");
+                    JOptionPane.showMessageDialog(null, "Producto eliminado con éxito");
                     limpiarCampos();
                     llenarTabla();
                 } else {
-                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de eliminar este filtro.");
+                    JOptionPane.showMessageDialog(null, "Ocurrio un problema al momento de eliminar este Producto.");
                 }
             }
         });
@@ -239,12 +247,15 @@ public class Consulta extends JFrame {
                 FiltroDao fd = new FiltroDao();
                 Filtro f = fd.read(codigo.getText());
                 if (f == null) {
-                    JOptionPane.showMessageDialog(null, "El Filtro buscado no ha sido encontrado");
+                    JOptionPane.showMessageDialog(null, "El Producto buscado no ha sido encontrado");
                 } else {
 
                     codigo.setText(f.getCodigo());
-                    disponibilidad.setSelectedItem(f.getNombre());
+                    precio.setText(Double.toString(f.getPrecio()));
+                    nombre.setText(f.getNombre());
                     cantidad.setText(Integer.toString(f.getCantidad()));
+                    tipo.setSelectedItem(f.getTipo());
+                    
 
                     if (f.getDisponibilidad()) {
                         si.setSelected(true);
@@ -265,7 +276,9 @@ public class Consulta extends JFrame {
 
     public void limpiarCampos() {
         codigo.setText("");
-        disponibilidad.setSelectedItem("");
+        precio.setText("");
+        nombre.setText("");
+        tipo.setSelectedItem("Fruta");
         cantidad.setText("");
 
     }

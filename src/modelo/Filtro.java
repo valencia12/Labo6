@@ -10,34 +10,41 @@ package modelo;
  * @author LN710Q
  */
 public class Filtro {
-    
     private int id;
     private String codigo;
+    private double precio;
     private String nombre;
     private int cantidad;
+    private String tipo;
     private boolean disponibilidad;
 
     public Filtro() {
     }
 
-    public Filtro(int id, String codigo, String nombre, int cantidad, boolean disponibilidad) {
+    public Filtro(int id, String codigo, double precio, String nombre, int cantidad, String tipo, boolean disponibilidad) {
         this.id = id;
         this.codigo = codigo;
+        this.precio = precio;
         this.nombre = nombre;
         this.cantidad = cantidad;
+        this.tipo = tipo;
         this.disponibilidad = disponibilidad;
     }
-    
-    public Filtro(String codigo, String nombre, int cantidad, boolean disponibilidad) {
+
+    public Filtro(String codigo, double precio, String nombre, int cantidad, String tipo, boolean disponibilidad) {
         this.codigo = codigo;
+        this.precio = precio;
         this.nombre = nombre;
         this.cantidad = cantidad;
+        this.tipo = tipo;
         this.disponibilidad = disponibilidad;
     }
     
-    public Filtro(String nombre, int cantidad, boolean exisdisponibilidadtencia) {
+    public Filtro(double precio, String nombre, int cantidad, String tipo, boolean disponibilidad){
+        this.precio = precio;
         this.nombre = nombre;
         this.cantidad = cantidad;
+        this.tipo = tipo;
         this.disponibilidad = disponibilidad;
     }
 
@@ -49,6 +56,10 @@ public class Filtro {
         return codigo;
     }
 
+    public double getPrecio() {
+        return precio;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -57,7 +68,11 @@ public class Filtro {
         return cantidad;
     }
 
-    public boolean getDisponibilidad() {
+    public String getTipo() {
+        return tipo;
+    }
+    
+    public boolean getDisponibilidad(){
         return disponibilidad;
     }
 
@@ -69,15 +84,25 @@ public class Filtro {
         this.codigo = codigo;
     }
 
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
-    public void setcantidad(int cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
+    
+    
 }
