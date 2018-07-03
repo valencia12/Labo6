@@ -17,7 +17,6 @@ public class Filtro {
     private int cantidad;
     private String tipo;
     private boolean disponibilidad;
-
     public Filtro() {
     }
 

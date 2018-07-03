@@ -35,9 +35,9 @@ import modelo.Filtro;
  */
 public class Consulta extends JFrame {
 
-    public JLabel lblCodigo, lblPrecio, lblNombre, lblCantidad, lblTipo, lblDisponibilidad;
+    public JLabel lblCodigo, lblPrecio, lblNombre, lblCantidad, lblTipo, lblDisponibilidad, lblcantidad;
 
-    public JTextField codigo, precio, nombre, cantidad;
+    public JTextField codigo, precio, nombre, cantidad, precio1;
     public JComboBox tipo;
 
     ButtonGroup disponibilidad = new ButtonGroup();
